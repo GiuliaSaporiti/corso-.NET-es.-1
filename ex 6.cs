@@ -1,37 +1,22 @@
 ﻿namespace esercizio6
 {
 
-    class Menu
+    static class Menu
+    { 
+        public static string Username { get; private set; }
+        public static string Password { get; private set; }
+        public static string ConfermaPassword { get; private set; }
+        public static bool AuthOk { get; private set; }
+        public static string DataLogin { get; private set }
+        public static bool SeiFuori { get; private set } = false;
+        public static DateTime[] ListaAccessi { get; private set; }
 
 
-    {
-        private string _username;
-        private string _password;
-        private string _confermaPassword;
-        private bool _display;
-        private bool _autok;
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string ConfermaPassword { get; set; }
-        public bool Display { get; set; }
-        public bool Autok { get; set; }
-        public static void Banner()
+
+
+        public static void Login()
         {
-            string[] opzioni = { "login", "logout", "verifica ora e data", "lista degli accessi", "esci" };
-
-
-            Console.WriteLine("========OPZIONI=======");
-            Console.WriteLine("Segli l'operazione da effettuare:");
-            for (int i = 0; i < opzioni.Length; i++)
-            {
-                Console.WriteLine($"{i + 1} {opzioni[i]}");
-            }
-            Console.WriteLine("=======================");
-        }
-
-        public void Login()
-        {
-            Console.WriteLine("insert name");
+            Console.WriteLine("inserire username");
             string nome = Console.ReadLine();
             Username = nome;
 
@@ -39,53 +24,104 @@
             string password = Console.ReadLine();
             Password = password;
 
-            Console.WriteLine("confirm password");
-            string confermaPassword = Console.ReadLine();
-            if (confermaPassword == password)
+            Console.WriteLine("confermare password");
+            string confermapassword = Console.ReadLine();
+
+            if (confermapassword == password)
             {
-                Console.WriteLine($"password giusta ciao {nome}");
-                Autok = true;
-                DateTime date = DateTime.Now;
-                Console.WriteLine(date);
-            } 
+                Console.WriteLine($"Benvenuto {Username}!");
+                AuthOk = true;
+                DataLogin = DateTime.Now.ToString();
+
+            }
             else
             {
-                Console.WriteLine("la password è sbagliata");
+                Console.WriteLine("Le password è errata!");
             }
-
-            Banner();
         }
-        public void Logout()
+
+        public static void Logout()
         {
-            if (Autok)
+            if (AuthOk)
             {
                 Username = "";
                 Password = "";
                 ConfermaPassword = "";
-                Autok = false;
+                AuthOk = false;
+                DataLogin = "";
+                Console.WriteLine("logout");
             }
             else
             {
-                Console.WriteLine("sei uscito");
+                Console.WriteLine("errore");
             }
 
-            Banner();
         }
-        public void DataOraLogin(object datetime)
+        public static void DataOraLogin()
         {
-            if (!Autok)
+            if (AuthOk)
             {
-                Console.WriteLine(datetime);
+                Console.WriteLine($"ti sei autenticato in {DataLogin}");
             }
-            
+            else
+            {
+                Console.WriteLine("non sei loggato");
+            }
+
+        }
+        public static void Esci()
+        {
+            SeiFuori = true;
         }
 
-    }
-    internal class Program
-    {
-        static void Main(string[] args)
+        internal class Program
         {
-            Menu.Banner();
+            static void Main()
+            {
+                string[] opzioni = { "Login", "Logout", "Verifica ora e data di login", "Lista degli accessi", "Esci" };
+
+                Console.WriteLine("===============OPERAZIONI==============");
+                Console.WriteLine("Scegli l’operazione da effettuare:");
+                for (int i = 0; i < opzioni.Length; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {opzioni[i]}");
+                }
+                Console.WriteLine("========================================");
+            }
+
+            public static void Gestione()
+            {
+                Main();
+                string stringa = Console.ReadLine();
+                int scelta = int.Parse(stringa);
+                switch (scelta)
+                {
+                    case 1:
+                        Menu.Login();
+                        break;
+                    case 2:
+                        Menu.Logout();
+                        break;
+                    case 3:
+                        Menu.DataOraLogin();
+                        break;
+                    case 5:
+                        Menu.Esci();
+                        break;
+                    default:
+                        Console.WriteLine("Non è una scelta valida");
+                        break;
+                }
+
+            }
+            static void Main(string[] args)
+            {
+                do
+                {
+                    Gestione();
+                } while (Menu.SeiFuori == false);
+            }
         }
     }
 }
+        
