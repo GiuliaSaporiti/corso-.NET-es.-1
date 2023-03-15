@@ -1,34 +1,71 @@
 body { 
     font-family: sans-serif ;
 }
-hr {
-    color: blue;
+
+main hr {
+    margin-bottom: 80;    
+    color: rgba(208, 208, 212, 0.678);
 }
+
+header hr { 
+   border-width: 3px;
+   color: rgb(13, 42, 136);   
+}
+
 h2 {
     text-align: center;
 }
+
 header ul li {
     list-style: none;
+    text-align: left; 
+    margin-bottom: 20;
 }
+
 .scritteblu {
-    color:blue;
+    
+    color:  rgb(13, 42, 136);
 }
+
 .text-align2 {
-    text-align: center;
+    text-align: center;   
 }
-#verdino {
-    background-color: rgb(143, 241, 241);
+
+#verdino {    
+    background-color:  rgb(199, 213, 223);
 }
+
 #rosybrown {
-    background-color: rosybrown
+    border: 50;
+    margin: 10 ;
+    padding: 10 ;
+    background-color: rgb(233, 238, 186)
 }
+
 #gray {
-    background-color: gray;
+    border: 50;
+    margin: 10;
+    padding: 10;
+    background-color: rgb(199, 213, 223);
 }
+
 #blu {
-    background-color: blue;
+    padding: 10;
+    margin-bottom: 2;
+    background-color: rgb(13, 42, 136);
     color: blanchedalmond;
 }
+
 #alignend {
     text-align: end;
 }
+
+#competenze{
+    box-sizing: border-box;
+    padding: 50;
+}
+
+.margine {
+    margin-bottom: 15;
+    margin-left: 20;
+ }
