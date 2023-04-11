@@ -1,0 +1,70 @@
+-- 1 verbali trascritti--
+SELECT COUNT (id_verbale)
+FROM Verbale
+
+--2 verbali trascritti per anagrafe--
+SELECT id_anagrafica
+FROM Verbale
+GROUP BY id_anagrafica ;
+
+--3 verbali trascritti per violazione--
+SELECT id_violazione
+FROM Verbale
+GROUP BY id_violazione
+
+--4 punti decurtati per anagrafe--
+SELECT count (decurtamento_punti), id_anagrafica
+FROM Verbale
+GROUP BY id_anagrafica;
+
+select decurtamento_punti, id_anagrafica
+FROM Verbale
+
+--5 cognome, nome, data violazione, indirizzo violazione, importo, punti decurtati per residenti a palermo--
+
+SELECT Anagrafica.cognome, Anagrafica.nome, Verbale.data_violazione, Verbale.indirizzo_violazione, Verbale.importo, Verbale.decurtamento_punti
+ FROM Verbale
+INNER JOIN Anagrafica ON Verbale.id_anagrafica=Anagrafica.id_anagrafica
+where citta= 'palermo'
+
+--6 cognome nome indirizzo data violazione importo punti decurtati tra 02-2009 e 07_2009
+SELECT Anagrafica.cognome, Anagrafica.nome, data_violazione, Verbale.indirizzo_violazione, Verbale.importo, Verbale.decurtamento_punti
+ FROM Verbale
+INNER JOIN Anagrafica ON Verbale.id_anagrafica=Anagrafica.id_anagrafica
+where  Verbale.data_violazione >= '2009-02-01' 
+AND Verbale.data_violazione <= '2009-07-30'
+
+--7 totale importi per ogni anagrafico--
+SELECT Anagrafica.id_anagrafica, Verbale.importo
+FROM Verbale 
+INNER JOIN Anagrafica ON Verbale.id_anagrafica= Anagrafica.id_anagrafica
+
+--8 anagrafici residenti a palermo--
+SELECT Anagrafica.id_anagrafica, Anagrafica.citta
+FROM Anagrafica
+WHERE citta = 'palermo'
+
+--9 Query parametrica Data violazione, Importo decurtamento punti relativi ad una certa data--
+
+SELECT Verbale.data_violazione, Verbale.importo, Verbale.decurtamento_punti
+FROM Verbale 
+WHERE data_violazione = '2006-09-08'
+
+--10 Conteggio violazioni raggruppate per Nominativo dell’agente di Polizia--
+SELECT COUNT (id_violazione) nominativo_agente
+FROM Verbale
+GROUP BY nominativo_agente;
+
+--11 Cognome, Nome, Indirizzo, Data violazione, Importo punti decurtati per tutte le violazioni che superino 5 punti--
+SELECT Anagrafica.cognome, Anagrafica.nome, data_violazione, Verbale.indirizzo_violazione, Verbale.importo, Verbale.decurtamento_punti
+ FROM Verbale
+INNER JOIN Anagrafica ON Verbale.id_anagrafica=Anagrafica.id_anagrafica
+where   decurtamento_punti > '5' 
+
+--12 Cognome Nome Indirizzo Data violazione Importo e punti decurtati per tutte le violazioni superino importo 400 euro--
+
+SELECT Anagrafica.cognome, Anagrafica.nome, data_violazione, Verbale.indirizzo_violazione, Verbale.importo, Verbale.decurtamento_punti
+ FROM Verbale
+INNER JOIN Anagrafica ON Verbale.id_anagrafica=Anagrafica.id_anagrafica
+where   importo > '400'
+

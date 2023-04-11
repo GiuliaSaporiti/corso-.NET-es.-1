@@ -1,0 +1,28 @@
+-- 1
+CREATE PROCEDURE AnnoTotaleContravvenzioni @Anno DATE
+AS
+
+SELECT *
+FROM Verbale
+WHERE data_violazione = @Anno
+GO
+
+-- 2
+CREATE PROCEDURE PuntiDecurtatiData @Data DATE
+AS
+
+SELECT 
+	SUM(decurtamento_punti) AS Punti_Decurtati,
+	data_violazione
+FROM Verbale
+WHERE data_violazione = @Data
+GROUP BY data_violazione
+GO
+
+-- 3
+CREATE PROCEDURE EliminaVerbale @Id INT
+AS
+
+DELETE FROM Verbale
+WHERE Id_verbale = @Id
+GO
